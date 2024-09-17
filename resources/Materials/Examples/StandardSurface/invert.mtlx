@@ -2,7 +2,7 @@
 <materialx version="1.39" >
 	<nodegraph name="invert_graph">
     <!-- Define the input color -->
-    <input name="input_color" type="color3" value="1.0, 0.0, 0.0" />
+    <input name="input_color" type="color3" value="0.0, 0.0, 0.2" />
 
     <!-- Invert node: subtracting the input color from the "amount" (1.0, 1.0, 1.0) -->
     <invert name="invert_color" type="color3" >
