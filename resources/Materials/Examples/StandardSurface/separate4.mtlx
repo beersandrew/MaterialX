@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<materialx version="1.39" >
+	<nodegraph name="separate_shadergraph" >
+		<combine4 name="combine_vector4" type="vector4" >
+			<input name="in1" type="float" value="0.5" />
+			<input name="in2" type="float" value="1.0" />
+			<input name="in3" type="float" value="0.1" />
+			<input name="in4" type="float" value="0.8" />
+		</combine4>
+		<separate4 name="separate_Vector4" type="multioutput" >
+			<input name="in" type="vector4" nodename="combine_vector4" />
+		</separate4>
+		<combine4 name="combine" type="vector4" >
+			<input name="in1" type="float" output="outx" nodename="separate_Vector4" /> 
+			<input name="in2" type="float" output="outz" nodename="separate_Vector4" /> 
+			<input name="in3" type="float" output="outw" nodename="separate_Vector4" /> 
+			<input name="in4" type="float" value="0.0" />
+		</combine4>
+		<convert name="vector4_to_color3" type="color3" >
+			<input name="in" type="vector4" nodename="combine" />
+		</convert>
+		<output name="base_color" type="color3" nodename="vector4_to_color3" />
+		<output name="metalness" type="float" output="outy" nodename="separate_Vector4" />
+	</nodegraph>
+	<surfacematerial name="Default" type="material" >
+		<input name="surfaceshader" type="surfaceshader" nodename="separate_standard_surface" />
+	</surfacematerial>
+	<standard_surface name="separate_standard_surface" type="surfaceshader" >
+		<input name="base_color" type="color3" nodegraph="separate_shadergraph" output="base_color" />
+		<input name="metalness" type="float" nodegraph="separate_shadergraph" output="metalness" />
+	</standard_surface>
+</materialx>
