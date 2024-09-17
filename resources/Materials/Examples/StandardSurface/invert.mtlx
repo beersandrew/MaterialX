@@ -7,7 +7,7 @@
     <!-- Invert node: subtracting the input color from the "amount" (1.0, 1.0, 1.0) -->
     <invert name="invert_color" type="color3" >
       <input name="in" type="color3" interfacename="input_color" />
-      <input name="amount" type="color3" value="1.0, 1.0, 1.0" />
+      <input name="amount" type="color3" value="1.0, 0.0, 0.5" />
     </invert>
 
     <!-- Define the output of the nodegraph -->
