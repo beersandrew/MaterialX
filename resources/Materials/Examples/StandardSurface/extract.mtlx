@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<materialx version="1.39">
+  <nodegraph name="extract_example">
+    <constant name="color" type="color3" >
+        <input name="value" type="color3" value="1.0, 0.5, 0.2" />
+    </constant>
+
+    <extract name="extract_y" type="float">
+      <input name="in" type="color3" nodename="color" />
+      <input name="index" type="integer" value="1" />
+    </extract>
+
+    <extract name="extract_z" type="float">
+      <input name="in" type="color3" nodename="color" />
+      <input name="index" type="integer" value="2" />
+    </extract>
+
+    <extract name="extract_x" type="float">
+      <input name="in" type="color3" nodename="color" />
+      <input name="index" type="integer" value="0" />
+    </extract>
+
+    <combine3 name="swizzled_vector" type="vector3">
+      <input name="in1" type="float" nodename="extract_y" />
+      <input name="in2" type="float" nodename="extract_z" />
+      <input name="in3" type="float" nodename="extract_x" />
+    </combine3>
+
+    <convert name="vector3_to_color3" type="color3" >
+			<input name="in" type="vector3" nodename="swizzled_vector" />
+		</convert>
+
+    <output name="base_color" type="color3" nodename="vector3_to_color3" />
+  </nodegraph>
+  <surfacematerial name="Default" type="material">
+    <input name="surfaceshader" type="surfaceshader" nodename="output_standard_surface" />
+  </surfacematerial>
+  <standard_surface name="output_standard_surface" type="surfaceshader">
+    <input name="base_color" type="color3" nodegraph="extract_example" output="base_color" />
+  </standard_surface>
+</materialx>
