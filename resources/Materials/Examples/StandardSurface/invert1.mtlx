@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<materialx version="1.39" >
+	<nodegraph name="invert_graph">
+    <!-- Define the input color -->
+    <input name="input_color" type="color3" value=".0, 1.0, 0.2" />
+
+    <!-- Invert node: subtracting the input color from the "amount" (1.0, 1.0, 1.0) -->
+    <invert name="invert_color" type="color3" >
+      <input name="in" type="color3" interfacename="input_color" />
+    </invert>
+
+    <!-- Define the output of the nodegraph -->
+    <output name="base_color" type="color3" nodename="invert_color" />
+  </nodegraph>
+	<surfacematerial name="Default" type="material" >
+		<input name="surfaceshader" type="surfaceshader" nodename="separate_standard_surface" />
+	</surfacematerial>
+	<standard_surface name="separate_standard_surface" type="surfaceshader" >
+		<input name="base_color" type="color3" nodegraph="invert_graph" output="base_color" />
+	</standard_surface>
+</materialx>
